@@ -1,0 +1,25 @@
+{
+  "name": "unit6_exceeds",
+  "version": "1.0.0",
+  "description": "Ryan Emslie Unit6 Exceeds Attempt Techdegree",
+  "main": "scraper.js",
+  "scripts": { "start" : "node scraper.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "treehouse",
+    "scraper",
+    "unit6",
+    "cheerio",
+    "json-2-csv"
+  ],
+  "author": "Ryan Emslie",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "i": "^0.3.6",
+    "json-2-csv": "^2.3.1",
+    "npm": "^6.4.1",
+    "readme.md": "^0.1.1"
+  }
+}
