@@ -8,29 +8,37 @@ const cheerio = require("cheerio");
 //global arrays
 const linksArr = [];
 const shirtArr = [];
+let statusCodeError = "";
 
 try {
   //Test for 404 Error by entering ..../shorts.php - "Mike don't sell no shorts!!"
   const request = http.get(`http://shirts4mike.com/shirts.php`, response => {
-    //Conditional set to display Status Codes.
+   
     if (response.statusCode != `200`) {
-      if (response.statusCode == "404") {
+      if (response.statusCode == `404`) {
+        // printError()
         console.log(
           `\nDOH!! Website cannot be found!! Please re-check the URL\n${
             response.statusCode
           } error occurred.`
         );
+        let error = new Error(`Status Code: 404 error`);
+        printError(error);
       } else {
         console.log(
           `\nUh-Oh! Something went wrong. Please try again later\n${
             response.statusCode
           }`
         );
+        let error = new Error(`Status Code: ${
+          response.statusCode
+        } error`);
+        printError(error);
       }
     }
 
     let body = "";
-   
+
     response.on("data", data => {
       body += data.toString();
     }); //on
@@ -45,6 +53,7 @@ try {
 
       //Function calls main scrapping functions
       startScrape();
+      
     }); //end
   }); //end get
 
@@ -53,7 +62,7 @@ try {
     printError(error);
   });
 } catch (error) {
-  console.error(error.message)
+  console.error(error.message);
   printError(error);
 }
 
@@ -128,14 +137,14 @@ function fileDate() {
   return [year, month, day].join("-");
 } // end fileDate
 
-
 //Print Error Messages
 function printError(error) {
   if (!fs.existsSync("scraper-error.log")) {
     fs.createWriteStream("scraper-error.log");
   }
-  
-  let errorEvent = `${new Date()} ${error.message}`;
+ 
+ 
+  let errorEvent = `${new Date()} ${error.message}\n`;
   console.log(
     `\n"${error.message}" error occurred on - ${new Date()}\n Error Logged!`
   );
@@ -144,3 +153,6 @@ function printError(error) {
     console.log("An error has been logged to scraper-error.log");
   });
 }
+
+
+
